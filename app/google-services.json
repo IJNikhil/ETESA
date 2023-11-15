@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "426008735292",
+    "project_id": "etesa-attendance-system",
+    "storage_bucket": "etesa-attendance-system.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426008735292:android:78dc06c38ec25b79cb1d39",
+        "android_client_info": {
+          "package_name": "com.etesa.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAn3vF3aCqW5q8JWzcfYkaXEpqKpgvVdg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
