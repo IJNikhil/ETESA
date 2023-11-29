@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "834031326390",
+    "project_id": "etesa-class-record",
+    "storage_bucket": "etesa-class-record.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:834031326390:android:03f9700659c3a8c85c4217",
+        "android_client_info": {
+          "package_name": "com.etesa.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "834031326390-n29ts9gqicfeedv4s8n4j45shtkgvsg3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.etesa.app",
+            "certificate_hash": "39817c407d4325ec651d9bb2ff18d1f8937f2b31"
+          }
+        },
+        {
+          "client_id": "834031326390-9v8ros1t4c0bea8bog1pg0krgrb66tbj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCKZ8T4xzCh7aQUm_chESLYuUfmXdVjeY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "834031326390-9v8ros1t4c0bea8bog1pg0krgrb66tbj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
