@@ -16,6 +16,7 @@ import com.etesa.app.student.Student;
 import com.etesa.app.student.StudentAdapter;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.divider.MaterialDivider;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,6 +31,7 @@ public class MarkAbsentActivity extends AppCompatActivity {
     private String selectedClass, selectedSemester, selectedSubject, selectedDate;
     private static final String TAG = "MarkAbsentActivity";
     MaterialButton saveAttendanceButton;
+    LinearProgressIndicator progressBar;
     private RecyclerView recyclerView;
     private StudentAdapter adapter;
     private List<Student> studentList = new ArrayList<>();
@@ -43,6 +45,7 @@ public class MarkAbsentActivity extends AppCompatActivity {
         initIntent();
 
         initializeUIComponents();
+        setInProgress(false);
 
         initializeStudentData();
 
@@ -56,6 +59,16 @@ public class MarkAbsentActivity extends AppCompatActivity {
         selectedSubject = intent.getStringExtra("selectedSubject");
         selectedDate = intent.getStringExtra("selectedDate");
     }
+
+    void setInProgress(boolean inProgress) {
+        if (inProgress) {
+            progressBar.setVisibility(View.VISIBLE);
+            saveAttendanceButton.setVisibility(View.GONE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+            saveAttendanceButton.setVisibility(View.VISIBLE);
+        }
+    }
     private void initializeUIComponents() {
 
         MaterialTextView mainText = findViewById(R.id.mainText);
@@ -63,13 +76,13 @@ public class MarkAbsentActivity extends AppCompatActivity {
         LinearLayout title = findViewById(R.id.title);
         MaterialTextView studentRollNoTitle = findViewById(R.id.studentRollNoTitle);
         MaterialTextView checkStudentTitle = findViewById(R.id.checkStudentTitle);
+        saveAttendanceButton = findViewById(R.id.saveAttendance);
+        progressBar = findViewById(R.id.progressBar);
 
         setupRecycler();
     }
     private void setupRecycler() {
         recyclerView = findViewById(R.id.rollNo_recycler_view);
-        saveAttendanceButton = findViewById(R.id.saveAttendance);
-
         markAbsentActivity = this;
         // Set up recycler view
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -117,6 +130,7 @@ public class MarkAbsentActivity extends AppCompatActivity {
         }
     }
     public void submitAttendance(View view) {
+        setInProgress(true);
         // Create custom document name with class + semester + subject + date
         String documentName = selectedClass + "_" + selectedSemester + "_" + selectedSubject + "_" + selectedDate;
         DocumentReference documentReference = FirebaseFirestore.getInstance().collection("attendance").document(documentName);
@@ -135,6 +149,12 @@ public class MarkAbsentActivity extends AppCompatActivity {
             if (task.isSuccessful()) {
                 Log.d(TAG, "Attendance data stored successfully for document: " + documentName);
                 Toast.makeText(MarkAbsentActivity.this, "Attendance marked successfully", Toast.LENGTH_SHORT).show();
+
+
+
+                Intent intent = new Intent(getApplicationContext(), FacultyDashboardActivity.class);
+                startActivity(intent);
+                finish();
             } else {
                 Log.e(TAG, "Failed to store attendance data: ", task.getException());
                 Toast.makeText(MarkAbsentActivity.this, "Failed to mark attendance", Toast.LENGTH_SHORT).show();

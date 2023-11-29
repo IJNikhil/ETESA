@@ -14,6 +14,7 @@ import com.etesa.app.utilMain.AndroidUtil;
 import com.etesa.app.utilMain.FirebaseUtilMain;
 import com.etesa.app.utilMain.UserModelMain;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
@@ -31,6 +32,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     String selectedUserRole, userEmail, userPass, userCnfPass, userName, role;
     String uid = "";
     MaterialTextView loginTextBtn;
+    LinearProgressIndicator progressBar;
     View sView;
     UserModelMain model, modelMain;
 
@@ -40,6 +42,8 @@ public class CreateAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_account);
         initView();
         sView = new View(getApplicationContext());
+
+        setInProgress(false);
 
         String[] userRoles = {"HOD", "Faculty"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, userRoles);
@@ -79,6 +83,8 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     private void firebaseFetchUser() {
+        setInProgress(true);
+
         FirebaseAuth.getInstance().fetchSignInMethodsForEmail(userEmail).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 List<String> signInMethods = task.getResult().getSignInMethods();
@@ -158,5 +164,16 @@ public class CreateAccountActivity extends AppCompatActivity {
         addUserRole = findViewById(R.id.addUserRole);
         createUserBtn = findViewById(R.id.createUserBtn);
         loginTextBtn = findViewById(R.id.loginTextBtn);
+        progressBar = findViewById(R.id.progressBar);
+    }
+
+    void setInProgress(boolean inProgress) {
+        if (inProgress) {
+            progressBar.setVisibility(View.VISIBLE);
+            createUserBtn.setVisibility(View.GONE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+            createUserBtn.setVisibility(View.VISIBLE);
+        }
     }
 }

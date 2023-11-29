@@ -53,6 +53,14 @@ public class FacultyMarkReportActivity extends AppCompatActivity {
                     intent.putExtra("selectedSubject", selectedSubject);
                     intent.putExtra("selectedDate", selectedDate);
                     startActivity(intent);
+
+
+                    // Reset input views
+                    selectClass.setText("");
+                    selectSemester.setText("");
+                    selectSubject.setText("");
+                    selectDate.setText("");
+
                 }
             });
         }

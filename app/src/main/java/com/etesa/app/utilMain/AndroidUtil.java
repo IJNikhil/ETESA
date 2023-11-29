@@ -9,6 +9,7 @@ public class AndroidUtil {
     public static void showSnack(View view, String message) {
         Snackbar.make(view, message, Snackbar.LENGTH_LONG).show();
     }
+
     public static void passUserModelAsIntent(Intent intent, UserModelMain userModel) {
         intent.putExtra("userName", userModel.getUserName());
         intent.putExtra("userPass", userModel.getUserPassword());

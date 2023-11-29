@@ -4,13 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    android:padding="26dp">
+    tools:context=".LoginActivity">
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateDuration="3000"
+        app:indicatorColor="@color/coors_blue"
+        app:trackThickness="5dp" />
 
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="150dp">
+    android:layout_marginTop="150dp"
+    android:padding="26dp">
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,7 +69,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 </RelativeLayout>
-
 
     <com.google.android.material.button.MaterialButton
         style="@style/Widget.MaterialComponents.Button"

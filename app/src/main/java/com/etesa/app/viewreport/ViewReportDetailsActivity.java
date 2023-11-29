@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.etesa.app.R;
 
 import com.google.android.material.divider.MaterialDivider;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
@@ -37,6 +39,7 @@ public class ViewReportDetailsActivity extends AppCompatActivity {
     private ViewAdapter adapter;
     private String selectedClass, selectedSemester, selectedSubject, selectedDate, selectedView;
     private Map<String, Boolean> checkedRollNoMap;
+    LinearProgressIndicator progressBar;
 
 
     ViewReportDetailsActivity viewReportDetailsActivity = this;
@@ -54,9 +57,11 @@ public class ViewReportDetailsActivity extends AppCompatActivity {
 
         initIntent();
         initializeUIComponents();
+        setInProgress(true);
         initAdapter();
         setupRecycler();
         getData();
+
     }
 
     private void initIntent() {
@@ -98,6 +103,8 @@ public class ViewReportDetailsActivity extends AppCompatActivity {
         allStudentList.clear();
         presentStudentList.clear();
         absentStudentList.clear();
+
+        setInProgress(false);
 
         if (checkedRollNoMap != null) {
             for (String rollNumber : checkedRollNoMap.keySet()) {
@@ -181,6 +188,15 @@ public class ViewReportDetailsActivity extends AppCompatActivity {
         MaterialTextView viewStudentAttendanceTitle = findViewById(R.id.viewStudentAttendanceTitle);
         viewSelectionLayout = findViewById(R.id.viewSelectionLayout);
         selectView = findViewById(R.id.selectView);
+        progressBar = findViewById(R.id.progressBar);
+    }
+
+    void setInProgress(boolean inProgress) {
+        if (inProgress) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     private void initAdapter() {

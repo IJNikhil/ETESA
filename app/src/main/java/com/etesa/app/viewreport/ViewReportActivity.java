@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.etesa.app.R;
 import com.etesa.app.faculty.MarkAbsentActivity;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 
 import java.text.DateFormat;
@@ -22,6 +24,7 @@ public class ViewReportActivity extends AppCompatActivity {
     MaterialButton next;
     ArrayAdapter<String> classAdapter, semesterAdapter, subjectAdapter;
     String[] classList, semesterList, subjectList;
+    LinearProgressIndicator progressBar;
     String selectedClass, selectedSemester, selectedSubject, selectedDate;
     String[] sem3Subject = {"EM-3", "EDC", "DE", "EMI", "Aptitude", "Soft Skill"};
     String[] sem4Subject = {"NT", "SS", "BHR", "PTRP", "Python"};
@@ -34,6 +37,7 @@ public class ViewReportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_report);
         initViews();
+        setInProgress(false);
         initAdapter();
 
         if (next == null) {
@@ -44,6 +48,7 @@ public class ViewReportActivity extends AppCompatActivity {
                 if (selectedClass.isEmpty() || selectedSemester.isEmpty() || selectedSubject.isEmpty() || selectedDate.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please select all fields", Toast.LENGTH_SHORT).show();
                 } else {
+                    setInProgress(true);
                     // Navigate to MarkAbsentActivity
                     Intent intent = new Intent(getApplicationContext(), ViewReportDetailsActivity.class);
                     intent.putExtra("selectedClass", selectedClass);
@@ -51,6 +56,13 @@ public class ViewReportActivity extends AppCompatActivity {
                     intent.putExtra("selectedSubject", selectedSubject);
                     intent.putExtra("selectedDate", selectedDate);
                     startActivity(intent);
+
+
+                    // Reset input views
+                    selectClass.setText("");
+                    selectSemester.setText("");
+                    selectSubject.setText("");
+                    selectDate.setText("");
                 }
             });
         }
@@ -113,6 +125,16 @@ public class ViewReportActivity extends AppCompatActivity {
         });
     }
 
+    void setInProgress(boolean inProgress) {
+        if (inProgress) {
+            progressBar.setVisibility(View.VISIBLE);
+            next.setVisibility(View.GONE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+            next.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void initViews() {
 
         selectClass = findViewById(R.id.selectClass);
@@ -120,6 +142,7 @@ public class ViewReportActivity extends AppCompatActivity {
         selectSemester = findViewById(R.id.selectSemester);
         selectDate = findViewById(R.id.selectDate);
         next = findViewById(R.id.next);
+        progressBar = findViewById(R.id.progressBar);
 
         selectDate.setOnClickListener(v -> {
             // Create a new instance of DatePickerDialog

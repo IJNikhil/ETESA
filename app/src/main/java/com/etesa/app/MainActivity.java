@@ -6,21 +6,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.etesa.app.faculty.FacultyDashboardActivity;
 import com.etesa.app.utilMain.AndroidUtil;
 import com.etesa.app.utilMain.FirebaseUtilMain;
 import com.etesa.app.utilMain.UserModelMain;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    ImageView imgLogo;
+    MaterialTextView welcomeText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        imgLogo = findViewById(R.id.imgLogo);
+        welcomeText = findViewById(R.id.welcomeText);
 
         if (FirebaseUtilMain.isLoggedIn()) {
             FirebaseUtilMain.getCurrentUserDetails().get().addOnCompleteListener(task -> {
@@ -39,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
             new Handler().postDelayed(() -> loginUserScreen(), 1000);
         }
     }
+
+
     private void loginUserScreen() {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);

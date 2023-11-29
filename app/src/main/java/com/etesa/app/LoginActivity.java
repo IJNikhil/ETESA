@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import com.etesa.app.faculty.FacultyDashboardActivity;
@@ -11,6 +12,7 @@ import com.etesa.app.utilMain.AndroidUtil;
 import com.etesa.app.utilMain.FirebaseUtilMain;
 import com.etesa.app.utilMain.UserModelMain;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.Timestamp;
@@ -27,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     MaterialButton loginBtn;
     MaterialTextView createAcTextBtn;
     private String email, pass;
+    LinearProgressIndicator progressBar;
     private FirebaseAuth mAuth;
     UserModelMain model;
 
@@ -37,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         initView();
 
+        setInProgress(false);
         createAcTextBtn.setOnClickListener(view -> createUserScreen());
 
         loginBtn.setOnClickListener(view -> checkCredential());
@@ -52,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
     private void fetchUserOnFirebase(String email) {
+        setInProgress(true);
         FirebaseAuth.getInstance().fetchSignInMethodsForEmail(email).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 List<String> signInMethods = task.getResult().getSignInMethods();
@@ -150,5 +155,16 @@ public class LoginActivity extends AppCompatActivity {
         userPassInput = findViewById(R.id.userPass);
         loginBtn = findViewById(R.id.loginBtn);
         createAcTextBtn = findViewById(R.id.createAcTextBtn);
+        progressBar = findViewById(R.id.progressBar);
+    }
+
+    void setInProgress(boolean inProgress) {
+        if (inProgress) {
+            progressBar.setVisibility(View.VISIBLE);
+            loginBtn.setVisibility(View.GONE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+            loginBtn.setVisibility(View.VISIBLE);
+        }
     }
 }
