@@ -76,10 +76,15 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/saveAttendance"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="68dp"
         android:layout_alignParentBottom="true"
+        android:paddingTop="8dp"
         android:layout_centerHorizontal="true"
+        android:textSize="16sp"
+        app:cornerRadius="10dp"
+        android:layout_margin="16dp"
         android:text="Save Attendance" />
 
 

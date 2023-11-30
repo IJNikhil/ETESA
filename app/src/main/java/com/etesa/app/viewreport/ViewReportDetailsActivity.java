@@ -84,7 +84,6 @@ public class ViewReportDetailsActivity extends AppCompatActivity {
                 if (documentSnapshot.exists()) {
                     // Get the checkedRollNoMap from the document
                     checkedRollNoMap = (Map<String, Boolean>) documentSnapshot.get("checkedRollNoMap");
-
                     // Process attendance data
                     processAttendanceData();
                 } else {

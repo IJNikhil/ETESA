@@ -130,15 +130,18 @@
         <com.google.android.material.button.MaterialButton
             style="@style/Widget.MaterialComponents.Button"
             android:id="@+id/createUserBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="68dp"
             android:layout_alignParentBottom="true"
             android:paddingTop="8dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            app:cornerRadius="10dp"
             android:layout_margin="16dp"
             android:text="Create account"
-            tools:ignore="MissingConstraints"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"/>
+            tools:ignore="MissingConstraints,VisualLintButtonSize"
+            android:layout_marginBottom="40dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

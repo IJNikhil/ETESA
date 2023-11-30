@@ -19,10 +19,8 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.auth.User;
 
 import java.util.List;
-import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     TextInputEditText userEmailInput, userPassInput;
@@ -114,37 +112,36 @@ public class LoginActivity extends AppCompatActivity {
 
         userDocRef.set(userModel).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                facultyDashboardScreen(); // User data updated successfully, proceed to faculty dashboard
+//                UserModelMain model = task.getResult().toObject(UserModelMain.class);
+                String rRole = userModel.getUserRole();
+                if (rRole == "HOD") {
+                    facultyDashboardScreen(userModel);
+                } else if (rRole == "Faculty") {
+                    hodDashboardScreen(model);
+                }
+                facultyDashboardScreen(userModel); // User data updated successfully, proceed to faculty dashboard
             } else {
                 Toast.makeText(this, "Error saving user data to Firestore.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void facultyDashboardScreen() {
-        FirebaseUtilMain.getCurrentUserDetails().get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                model = task.getResult().toObject(UserModelMain.class);
-                String role = model.getUserRole();
+    private void facultyDashboardScreen(UserModelMain model) {
+        Intent intent = new Intent(getApplicationContext(), FacultyDashboardActivity.class);
+//        intent.putExtra(userName, "userName");
+        AndroidUtil.passUserModelAsIntent(intent, model);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
 
-                if (role == "HOD") {
-                    Intent intent = new Intent(getApplicationContext(), HodDashboard.class);
-                    AndroidUtil.passUserModelAsIntent(intent, model);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    finish();
-                } else if (role == "Faculty") {
-                    Intent intent = new Intent(getApplicationContext(), FacultyDashboardActivity.class);
-                    AndroidUtil.passUserModelAsIntent(intent, model);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    finish();
-                }
-
-            } else {
-                Toast.makeText(getApplicationContext(), "Unable to login", Toast.LENGTH_SHORT).show();
-            }
-        });
+    }
+    private void hodDashboardScreen(UserModelMain model) {
+        Intent intent = new Intent(getApplicationContext(), HodDashboard.class);
+//        intent.putExtra(userName, "userName");
+        AndroidUtil.passUserModelAsIntent(intent, model);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
     private void createUserScreen() {
         Intent intent = new Intent(getApplicationContext(), CreateAccountActivity.class);

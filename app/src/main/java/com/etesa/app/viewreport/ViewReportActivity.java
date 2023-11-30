@@ -57,7 +57,6 @@ public class ViewReportActivity extends AppCompatActivity {
                     intent.putExtra("selectedDate", selectedDate);
                     startActivity(intent);
 
-
                     // Reset input views
                     selectClass.setText("");
                     selectSemester.setText("");

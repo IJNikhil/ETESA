@@ -20,21 +20,24 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     ImageView imgLogo;
-    MaterialTextView welcomeText;
-
+    MaterialTextView welcomeTxt;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         imgLogo = findViewById(R.id.imgLogo);
-        welcomeText = findViewById(R.id.welcomeText);
+        welcomeTxt = findViewById(R.id.welcomeText);
 
         if (FirebaseUtilMain.isLoggedIn()) {
             FirebaseUtilMain.getCurrentUserDetails().get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
                     UserModelMain model = task.getResult().toObject(UserModelMain.class);
                     String rRole = model.getUserRole();
-                    facultyDashboardScreen(model, rRole);
+                    if (rRole == "HOD") {
+                        hodDashboardScreen(model);
+                    } else if (rRole == "Faculty") {
+                        facultyDashboardScreen(model);
+                    }
                 } else {
                     // Handle error
                     Log.e("MainActivity", "Error fetching user data", task.getException());
@@ -48,27 +51,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     private void loginUserScreen() {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
     }
-    private void facultyDashboardScreen(UserModelMain model, String role) {
-
-        if (role == "HOD") {
-            Intent intent = new Intent(getApplicationContext(), HodDashboard.class);
-//        intent.putExtra(userName, "userName");
-            AndroidUtil.passUserModelAsIntent(intent, model);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
-        } else if (role == "Faculty") {
+    private void facultyDashboardScreen(UserModelMain model) {
             Intent intent = new Intent(getApplicationContext(), FacultyDashboardActivity.class);
 //        intent.putExtra(userName, "userName");
             AndroidUtil.passUserModelAsIntent(intent, model);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
-        }
 
+    }
+    private void hodDashboardScreen(UserModelMain model) {
+        Intent intent = new Intent(getApplicationContext(), HodDashboard.class);
+//        intent.putExtra(userName, "userName");
+        AndroidUtil.passUserModelAsIntent(intent, model);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 }

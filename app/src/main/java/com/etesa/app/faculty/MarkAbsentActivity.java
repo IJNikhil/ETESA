@@ -94,16 +94,16 @@ public class MarkAbsentActivity extends AppCompatActivity {
     int rollNoStart, rollNoEnd;
     switch (selectedClass) {
         case "SY" -> {
-            rollNoStart = 1;
-            rollNoEnd = 50;
+            rollNoStart = 201;
+            rollNoEnd = 247;
         }
         case "TY" -> {
-            rollNoStart = 51;
-            rollNoEnd = 80;
+            rollNoStart = 301;
+            rollNoEnd = 371;
         }
         case "BTech" -> {
-            rollNoStart = 81;
-            rollNoEnd = 131;
+            rollNoStart = 401;
+            rollNoEnd = 436;
         }
         default -> {
             rollNoStart = 1;

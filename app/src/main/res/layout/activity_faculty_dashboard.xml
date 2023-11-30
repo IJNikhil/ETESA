@@ -37,7 +37,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/markReportTxt"
-                android:text="Mark Report"
+                android:text="Mark Attendance"
                 android:layout_margin="16dp"
                 android:textSize="20dp" />
             <ImageView
@@ -68,7 +68,7 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/viewReportTxt"
-                android:text="View Report"
+                android:text="View Attendance"
                 android:layout_margin="16dp"
                 android:textSize="20dp" />
             <ImageView
