@@ -21,6 +21,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.List;
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     TextInputEditText userEmailInput, userPassInput;
@@ -114,9 +115,9 @@ public class LoginActivity extends AppCompatActivity {
             if (task.isSuccessful()) {
 //                UserModelMain model = task.getResult().toObject(UserModelMain.class);
                 String rRole = userModel.getUserRole();
-                if (rRole == "HOD") {
+                if (Objects.equals(rRole, "HOD")) {
                     facultyDashboardScreen(userModel);
-                } else if (rRole == "Faculty") {
+                } else if (Objects.equals(rRole, "Faculty")) {
                     hodDashboardScreen(model);
                 }
                 facultyDashboardScreen(userModel); // User data updated successfully, proceed to faculty dashboard

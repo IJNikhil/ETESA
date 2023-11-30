@@ -33,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     UserModelMain model = task.getResult().toObject(UserModelMain.class);
                     String rRole = model.getUserRole();
-                    if (rRole == "HOD") {
+                    if (Objects.equals(rRole, "HOD")) {
                         hodDashboardScreen(model);
-                    } else if (rRole == "Faculty") {
+                    } else if (Objects.equals(rRole, "Faculty")) {
                         facultyDashboardScreen(model);
                     }
                 } else {
@@ -57,20 +57,21 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     private void facultyDashboardScreen(UserModelMain model) {
-            Intent intent = new Intent(getApplicationContext(), FacultyDashboardActivity.class);
-//        intent.putExtra(userName, "userName");
-            AndroidUtil.passUserModelAsIntent(intent, model);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
-
-    }
-    private void hodDashboardScreen(UserModelMain model) {
-        Intent intent = new Intent(getApplicationContext(), HodDashboard.class);
-//        intent.putExtra(userName, "userName");
+        Intent intent = new Intent(getApplicationContext(), FacultyDashboardActivity.class);
+        // Use AndroidUtil to pass UserModel as intent
         AndroidUtil.passUserModelAsIntent(intent, model);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
     }
+
+    private void hodDashboardScreen(UserModelMain model) {
+        Intent intent = new Intent(getApplicationContext(), HodDashboard.class);
+        // Use AndroidUtil to pass UserModel as intent
+        AndroidUtil.passUserModelAsIntent(intent, model);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
+
 }

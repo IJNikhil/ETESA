@@ -111,13 +111,13 @@ public class CreateAccountActivity extends AppCompatActivity {
                 setData(userName, role, userEmail, userPass, uid);
 
                 String rRole = model.getUserRole();
-                if (rRole == "HOD") {
+                if (Objects.equals(rRole, "HOD")) {
                     Intent intent = new Intent(getApplicationContext(), HodDashboard.class);
                     AndroidUtil.passUserModelAsIntent(intent, model);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
-                } else if (role == "Faculty") {
+                } else if (Objects.equals(role, "Faculty")) {
                     Intent intent = new Intent(getApplicationContext(), FacultyDashboardActivity.class);
                     AndroidUtil.passUserModelAsIntent(intent, model);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
