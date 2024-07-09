@@ -73,6 +73,3 @@ cd ETESA/
 
 ## Conclusion
 ETESA simplifies attendance management for educational institutions by leveraging Firebase for real-time data handling and authentication. Follow the steps above to set up and deploy the application on your development environment.
-```
-
-This Markdown file provides a structured guide for installing, setting up dependencies, and understanding the purpose and features of the "ETESA" project. It's designed to be clear and understandable for anyone looking to work with or deploy the application. Adjustments can be made based on specific details of your project setup and requirements.
